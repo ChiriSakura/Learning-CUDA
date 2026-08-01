@@ -153,7 +153,7 @@ make PLATFORM=moore
 
 | 算子名称 | 目标平台 | 目标文件 | 支持数据类型 | 开发状态 | 测例通过 | 性能优化 | 备注 / 遇到问题 |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| **rmsNorm** | NVIDIA | `src/kernels.cu` | `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | |
+| **rmsNorm** | NVIDIA | `src/kernels.cu` | `float`, `half` | ✅ 已完成 | ✅ 已完成 | ✅ 已完成 | 持久复用设备缓冲区+单块分配，耗时 ~0.9ms→~0.1ms（约 5–8×） |
 | **rmsNorm** | 天数 (Iluvatar) | `src/kernels.cu` | `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | *适配可得 +20% 分数* |
 | **rmsNorm** | 沐曦 (MetaX) | `src/kernels.maca`| `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | *适配可得 +20% 分数* |
 | **rmsNorm** | 摩尔 (Moore) | `src/kernels.mu` | `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | *需支持 C++11, +20% 分数* |
@@ -185,7 +185,7 @@ make PLATFORM=moore
 | :--- | :--- | :---: | :--- | :--- |
 | **NVIDIA 默认测试** | `make` | ⬜ | | |
 | **NVIDIA 详细测试** | `make VERBOSE=true` | ⬜ | | 记录具体执行时间 |
-| **NVIDIA 仅测 rmsNorm** | `SKIP_ATTENTION=1 make`| ⬜ | | |
+| **NVIDIA 仅测 rmsNorm** | `SKIP_ATTENTION=1 make`| ✅ Pass (26/26) | 各测例 avg ~0.10–0.27 ms | float+half 均通过 |
 | **NVIDIA 仅测 Attn** | `SKIP_RMS_NORM=1 make` | ⬜ | | |
 | **天数平台测试** | `make PLATFORM=iluvatar` | ⬜ | | |
 | **沐曦平台测试** | `make PLATFORM=metax` | ⬜ | | |
@@ -203,6 +203,6 @@ make PLATFORM=moore
 ---
 
 ### 💡 进度统计
-- **算子开发进度**: `0 / 8` 项完成
+- **算子开发进度**: `1 / 8` 项完成
 - **平台适配进度**: `0 / 3` 个额外平台完成
 - **代码规范自查**: `0 / 6` 项通过
