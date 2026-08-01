@@ -144,3 +144,65 @@ make PLATFORM=moore
 ## 有疑问？
 
 可以在群里直接询问助教。
+
+## 📊 项目完成进度记录
+
+> 💡 **使用说明**：请将 `- [ ]` 替换为 `- [x]` 来表示已完成，并在表格的“状态”列更新为 `✅ 已完成`、`🚧 进行中` 或 `⬜ 未开始`。
+
+### 1. 算子实现与平台适配进度
+
+| 算子名称 | 目标平台 | 目标文件 | 支持数据类型 | 开发状态 | 测例通过 | 性能优化 | 备注 / 遇到问题 |
+| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
+| **rmsNorm** | NVIDIA | `src/kernels.cu` | `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | |
+| **rmsNorm** | 天数 (Iluvatar) | `src/kernels.cu` | `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | *适配可得 +20% 分数* |
+| **rmsNorm** | 沐曦 (MetaX) | `src/kernels.maca`| `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | *适配可得 +20% 分数* |
+| **rmsNorm** | 摩尔 (Moore) | `src/kernels.mu` | `float`, `half` | ⬜ 未开始 | ⬜ | ⬜ | *需支持 C++11, +20% 分数* |
+| **flashAttention**| NVIDIA | `src/kernels.cu` | `float`, `half`| ⬜ 未开始 | ⬜ | ⬜ | *需支持 causal & GQA* |
+| **flashAttention**| 天数 (Iluvatar) | `src/kernels.cu` | `float`, `half`| ⬜ 未开始 | ⬜ | ⬜ | *适配可得 +20% 分数* |
+| **flashAttention**| 沐曦 (MetaX) | `src/kernels.maca`| `float`, `half`| ⬜ 未开始 | ⬜ | ⬜ | *适配可得 +20% 分数* |
+| **flashAttention**| 摩尔 (Moore) | `src/kernels.mu` | `float`, `half`| ⬜ 未开始 | ⬜ | ⬜ | *需支持 C++11, +20% 分数* |
+
+---
+
+### 2. 代码规范与注意事项自查清单 (Checklist)
+
+> ⚠️ **注意**：不符合以下要求可能导致 **0分** 或 **综合评判折损**。请在最终提交前逐项确认。
+
+- [ ] **独立性**：代码为独立实现，未直接抄袭他人代码或开源实现（仅参考思路）。
+- [ ] **无违规库函数**：未使用任何现成的库函数（如 cuBLAS 等）直接实现 `rmsNorm` 或 `flashAttention` 的核心计算逻辑。
+- [ ] **计算位置**：主要矩阵计算均在 GPU (Device) 上实现，CPU (Host) 仅用于元信息计算、资源准备等辅助工作。
+- [ ] **代码风格**：整个项目保持了统一的命名风格（如驼峰或下划线）和代码缩进。
+- [ ] **代码注释**：关键逻辑（如 GQA 的索引计算、Shared Memory 的使用、Causal Masking 边界处理）已有清晰的注释。
+- [ ] **编译可用性**：代码在指定平台上可通过 `make` 直接编译运行，无缺失头文件或路径配置错误。
+
+---
+
+### 3. 编译与测试验证记录
+
+记录在不同平台和模式下的最终测试结果，确保提交前万无一失。
+
+| 测试场景 | 执行命令 | 测试结果 (Pass/Fail) | 耗时/性能表现 | 备注 |
+| :--- | :--- | :---: | :--- | :--- |
+| **NVIDIA 默认测试** | `make` | ⬜ | | |
+| **NVIDIA 详细测试** | `make VERBOSE=true` | ⬜ | | 记录具体执行时间 |
+| **NVIDIA 仅测 rmsNorm** | `SKIP_ATTENTION=1 make`| ⬜ | | |
+| **NVIDIA 仅测 Attn** | `SKIP_RMS_NORM=1 make` | ⬜ | | |
+| **天数平台测试** | `make PLATFORM=iluvatar` | ⬜ | | |
+| **沐曦平台测试** | `make PLATFORM=metax` | ⬜ | | |
+| **摩尔平台测试** | `make PLATFORM=moore` | ⬜ | | |
+
+---
+
+### 4. 提交前最终确认
+
+- [ ] 已在 InfiniTensor 官方服务器上进行过性能评估（性能加分依据）。
+- [ ] 已确认 GitHub 仓库链接可公开访问（或已按要求设置权限）。
+- [ ] 已在 [InfiniTensor 开源社区](https://www.infinitensor.com/camp/winter2025/homework) 成功提交 GitHub 链接。
+- [ ] 确认当前提交为截止日期前的 **最新且最终版本**。
+
+---
+
+### 💡 进度统计
+- **算子开发进度**: `0 / 8` 项完成
+- **平台适配进度**: `0 / 3` 个额外平台完成
+- **代码规范自查**: `0 / 6` 项通过
